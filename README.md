@@ -1,6 +1,6 @@
 # limpopo-driver-backend
 
-Supabase backend (Postgres migrations + Edge Functions) for the Limpopo driver app. Remote project ref: `hzvmtghpjaibmyvjhhzy`.
+NestJS API + Supabase (Postgres migrations) for the Limpopo driver app. Remote project ref: `hzvmtghpjaibmyvjhhzy`.
 
 ## Setup
 
@@ -15,7 +15,7 @@ cp .env.example .env
 
 ## Postgres
 
-Local Postgres runs in Docker with `npm start` (DB at `postgresql://postgres:postgres@127.0.0.1:54322/postgres`).
+Local Postgres runs in Docker with `npm run supabase:start` (DB at `postgresql://postgres:postgres@127.0.0.1:54322/postgres`).
 
 | Task | Command |
 | --- | --- |
@@ -25,12 +25,17 @@ Local Postgres runs in Docker with `npm start` (DB at `postgresql://postgres:pos
 | Rebuild local DB from migrations | `npm run db:reset` |
 | Apply migrations to remote | `npm run db:push` |
 
-## Edge Functions
+## API (NestJS)
+
+The former Edge Functions are NestJS routes. Each is `POST /<function-name>` with the same request/response JSON as before
+(errors are `{ "error": "..." }`).
 
 ```bash
-npm run functions:serve
-npx supabase functions deploy <name>
+npm run start:dev   # watch mode
+npm run build && npm run start:prod
 ```
+
+`SUPABASE_URL`, `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY` are no longer injected; set them in `.env`.
 
 ## Note
 
