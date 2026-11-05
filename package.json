@@ -15,7 +15,9 @@
     "supabase:start": "supabase start",
     "start": "nest start",
     "supabase:stop": "supabase stop",
-    "supabase:status": "supabase status"
+    "supabase:status": "supabase status",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\""
   },
   "devDependencies": {
     "@nestjs/cli": "^12.0.11",
@@ -23,6 +25,7 @@
     "@nestjs/testing": "^12.3.2",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
+    "prettier": "^3.9.10",
     "supabase": "^2.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
@@ -32,6 +35,7 @@
     "@nestjs/config": "^12.0.1",
     "@nestjs/core": "^12.3.2",
     "@nestjs/platform-express": "^12.3.2",
+    "@nestjs/throttler": "^6.7.1",
     "@supabase/supabase-js": "^2.118.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2"

@@ -35,6 +35,8 @@ npm run start:dev   # watch mode
 npm run build && npm run start:prod
 ```
 
+`GET /health` is available for liveness checks. SMS and account routes are limited to 10 requests/min per client IP (300/min elsewhere). Format with `npm run format`; CI runs `npm run format:check`. Deployment is described in the rider backend's `deploy/` folder; this repo's `.github/workflows/deploy.yml` redeploys only the `driver` service.
+
 `SUPABASE_URL`, `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY` are no longer injected; set them in `.env`.
 
 ## Note

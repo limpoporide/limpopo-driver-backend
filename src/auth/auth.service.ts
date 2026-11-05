@@ -31,7 +31,10 @@ export class AuthService {
       throw new BadRequestException('A valid phone number is required');
     }
 
-    const pinId = await this.termii.sendOtp(normalizedPhone, 'Your Limpopo verification code is < 123456 >');
+    const pinId = await this.termii.sendOtp(
+      normalizedPhone,
+      'Your Limpopo verification code is < 123456 >',
+    );
     return { success: true, pinId };
   }
 
@@ -59,9 +62,12 @@ export class AuthService {
     const password = body.password?.trim() ?? '';
     const normalizedPhone = normalizePhoneNumber(phone);
 
-    if (firstName.length < 3) throw new BadRequestException('First name must be at least 3 characters');
-    if (lastName.length < 3) throw new BadRequestException('Last name must be at least 3 characters');
-    if (!email || !EMAIL_PATTERN.test(email)) throw new BadRequestException('A valid email is required');
+    if (firstName.length < 3)
+      throw new BadRequestException('First name must be at least 3 characters');
+    if (lastName.length < 3)
+      throw new BadRequestException('Last name must be at least 3 characters');
+    if (!email || !EMAIL_PATTERN.test(email))
+      throw new BadRequestException('A valid email is required');
     if (!normalizedPhone) throw new BadRequestException('A valid phone number is required');
     if (password.length < 8) throw new BadRequestException('A temporary password is required');
 
@@ -112,7 +118,10 @@ export class AuthService {
       throw new NotFoundException('No driver account exists for this phone number');
     }
 
-    const pinId = await this.termii.sendOtp(normalizedPhone, 'Your Limpopo password reset code is < 123456 >');
+    const pinId = await this.termii.sendOtp(
+      normalizedPhone,
+      'Your Limpopo password reset code is < 123456 >',
+    );
     return { success: true, pinId, phone: localPhone };
   }
 
@@ -136,7 +145,8 @@ export class AuthService {
 
     if (!normalizedPhone) throw new BadRequestException('A valid phone number is required');
     if (!resetToken) throw new BadRequestException('A verified reset session is required');
-    if (!/^\d{6}$/.test(password)) throw new BadRequestException('Create a 6-digit password to continue');
+    if (!/^\d{6}$/.test(password))
+      throw new BadRequestException('Create a 6-digit password to continue');
 
     this.resetTokens.assertValid(resetToken, normalizedPhone, RESET_PURPOSE);
 
@@ -168,7 +178,10 @@ export class AuthService {
       throw new BadRequestException(updateError.message ?? 'Unable to update password');
     }
 
-    const { error: syncError } = await admin.from('driver_profile').update({ phone_verified: true }).eq('uuid', profile.uuid);
+    const { error: syncError } = await admin
+      .from('driver_profile')
+      .update({ phone_verified: true })
+      .eq('uuid', profile.uuid);
 
     if (syncError) {
       this.logger.error(`profile update failed: ${syncError.message}`);
